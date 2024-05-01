@@ -94,7 +94,7 @@ class Food:
     def update(self, snake, walls, screen, cell):
         import time
         global start_time
-        self.pos = Point(random.randint(0, 26), random.randint(0, 20))
+        self.pos = Point(random.randint(0, 26), random.randint(0, 19))
         for i in snake.body:
             if self.pos.x == i.x and self.pos.y == i.y: #check if snake's coordinates coincide with food's coordinates
                 self.update(snake, walls, screen, cell)
