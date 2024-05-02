@@ -1,0 +1,23 @@
+CREATE OR REPLACE PROCEDURE add_new_contacts(
+	new_name varchar[],
+	new_category varchar[],
+	new_number varchar[]
+) 
+AS $$
+BEGIN
+	-- insert into the parts table
+	for i in 1..cardinality(new_name) LOOP
+		PERFORM * FROM numbers_data
+		WHERE name = new_name[i];
+		if not found then 
+			INSERT INTO numbers_data(name, category, number)
+			VALUES(new_name[i], new_category[i], new_number[i]);
+		else
+			UPDATE numbers_data
+			SET number = new_number[i]
+			WHERE name = new_name[i];
+		end if;
+	end LOOP;
+END;
+$$
+LANGUAGE PLPGSQL;

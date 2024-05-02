@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION get_name(name_to_find VARCHAR)
+  RETURNS TABLE(№ INTEGER, category VARCHAR, number VARCHAR) AS
+$$
+BEGIN
+ RETURN QUERY
+
+ SELECT numbers_data.№, numbers_data.category, numbers_data.number
+ FROM numbers_data
+ WHERE name = name_to_find;
+
+END; $$
+
+LANGUAGE plpgsql;

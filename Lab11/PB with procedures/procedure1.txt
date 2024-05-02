@@ -1,0 +1,22 @@
+CREATE OR REPLACE PROCEDURE add_new_contact(
+	new_name varchar,
+	new_category varchar,
+	new_number varchar
+) 
+AS $$
+BEGIN
+	-- insert into the parts table
+	PERFORM * FROM numbers_data
+	WHERE name = new_name;
+	if not found then 
+		INSERT INTO numbers_data(name, category, number)
+		VALUES(new_name, new_category, new_number);
+	else
+		UPDATE numbers_data
+		SET number = new_number
+		WHERE name = new_name;
+	end if;
+	
+END;
+$$
+LANGUAGE PLPGSQL;
